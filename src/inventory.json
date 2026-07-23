@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "name": "iphone 16 pro",
+    "brand": "apple",
+    "price": 1500,
+    "details": {
+      "ram": "6 gb",
+      "rom": "128 gb"
+    },
+    "stock": 13,
+    "timestamp": "Addas"
+  },
+  {
+    "id": "2",
+    "name": "samsung s25 ultra",
+    "price": 600,
+    "brand": "samsung",
+    "stock": 13,
+    "details": {
+      "ram": "6 gb",
+      "rom": "128 gb"
+    },
+    "timestamp": "fafsa"
+  },
+  {
+    "id": "3",
+    "name": "samsung s23 ultra",
+    "price": 450,
+    "brand": "samsung",
+    "stock": 8,
+    "details": {
+      "ram": "6 gb",
+      "rom": "128 gb"
+    },
+    "timestamp": "SFafqw"
+  },
+  {
+    "id": "4",
+    "name": "redmi note 11",
+    "brand": "redmi",
+    "price": 110,
+    "stock": 8,
+    "details": {
+      "ram": "6 gb",
+      "rom": "128 gb"
+    },
+    "timestamp": "vwfe"
+  }
+]

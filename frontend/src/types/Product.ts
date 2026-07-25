@@ -1,13 +1,12 @@
-export type invType = {
+export interface ProductType {
   id: string;
   name: string;
   brand: string;
   price: number;
   stock: number;
   details: {
-    ram: number;
-    rom: number;
-    warranty?: string;
+    ram: string;
+    rom: string;
   };
   timestamp: string;
-};
+}

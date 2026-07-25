@@ -1,0 +1,6 @@
+@import "tailwindcss";
+:root {
+  background-color: #b0b0b0;
+  color: #000000;
+  scrollbar-width: none;
+}

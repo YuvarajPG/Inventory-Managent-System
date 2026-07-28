@@ -151,7 +151,7 @@ const AvailableProducts = ({ productList, setProductList }: props) => {
                       <Button
                         color="blue"
                         text="save changes"
-                        onClick={(e) => handleSaveChanges()}
+                        onClick={() => handleSaveChanges()}
                       />
                       <Button
                         color="gray"

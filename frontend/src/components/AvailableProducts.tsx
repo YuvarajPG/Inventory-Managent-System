@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { products } from "../data/data.ts";
-import { ProductType } from "../types/Product.ts";
-const AvailableProducts = () => {
+import React, { useState } from "react";
+import { ProductType } from "../types/Product";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
+interface props {
+  productList: ProductType[];
+  setProductList: React.Dispatch<React.SetStateAction<ProductType[]>>;
+}
+const AvailableProducts = ({ productList, setProductList }: props) => {
   /* delete modal */
-  const [productList, setProductList] = useState([...products]);
+
   const handleDelete = (id: string) => {
     setProductList((prev) => prev.filter((product) => product.id !== id));
   };
@@ -65,25 +70,8 @@ const AvailableProducts = () => {
     }
   };
 
-  /* search */
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const filtered = products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm) ||
-        product.brand.toLowerCase().includes(searchTerm),
-    );
-    setProductList(filtered);
-  };
   return (
     <div className="flex items-center gap-4 flex-col ">
-      <div className="flex items-center">
-        <p className="font-bold text-lg">Available Products</p>
-      </div>
-      <div className="flex justify-end me-4 gap-4">
-        <pre className="font-sans">search: </pre>
-        <input type="text" className="outline-2" onChange={handleSearch} />
-      </div>
       <hr className="border-t-2 border-gray-300 w-full" />
       <div className=" ">
         <ul className="flex gap-4 mt-4 flex-wrap justify-center marker:-none mx-4 cursor-default">
@@ -101,12 +89,11 @@ const AvailableProducts = () => {
               <li>Ram: {item.details.ram}</li>
               <li>Rom: {item.details.rom}</li>
               <div className="flex gap-2 mt-2 justify-center"></div>
-              <button
-                className="bg-[#00df70] text-white px-4 py-2 rounded-lg hover:bg-green-500 hover:cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-gray-700 shadow-gray-500 drop-shadow-cyan-700"
+              <Button
+                text="edit"
+                color="green"
                 onClick={() => handleEdit(item.id)}
-              >
-                Edit
-              </button>
+              />
 
               {/* modal */}
               {editModalOpen && selectedProduct?.id === item.id && (
@@ -114,9 +101,8 @@ const AvailableProducts = () => {
                   <div className="bg-white p-6 rounded-lg">
                     <h2 className="text-xl font-bold mb-4">Edit Product</h2>
                     <p>Edit details for {selectedProduct.name}</p>
-                    price:{" "}
-                    <input
-                      type="text"
+                    <Input
+                      text="price"
                       value={selectedProduct.price}
                       onChange={(e) =>
                         setSelectedProduct({
@@ -124,12 +110,9 @@ const AvailableProducts = () => {
                           price: Number(e.target.value),
                         })
                       }
-                      className="border border-gray-300 rounded px-2 py-1 mt-2"
                     />
-                    <br />
-                    stock:{" "}
-                    <input
-                      type="text"
+                    <Input
+                      text="stock : "
                       value={selectedProduct.stock}
                       onChange={(e) =>
                         setSelectedProduct({
@@ -137,12 +120,9 @@ const AvailableProducts = () => {
                           stock: Number(e.target.value),
                         })
                       }
-                      className="border border-gray-300 rounded px-2 py-1 mt-2"
                     />
-                    <br />
-                    ram:{" "}
-                    <input
-                      type="text"
+                    <Input
+                      text="RAM : "
                       value={selectedProduct.details.ram}
                       onChange={(e) =>
                         setSelectedProduct({
@@ -153,13 +133,10 @@ const AvailableProducts = () => {
                           },
                         })
                       }
-                      className="border border-gray-300 rounded px-2 py-1 mt-2"
                     />
-                    <br />
-                    rom:{" "}
-                    <input
-                      type="text"
+                    <Input
                       value={selectedProduct.details.rom}
+                      text="ROM : "
                       onChange={(e) =>
                         setSelectedProduct({
                           ...selectedProduct,
@@ -169,21 +146,18 @@ const AvailableProducts = () => {
                           },
                         })
                       }
-                      className="border border-gray-300 rounded px-2 py-1 mt-2"
                     />
                     <div className="flex gap-2 mt-4 justify-center">
-                      <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 hover:cursor-pointer"
-                        onClick={handleSaveChanges}
-                      >
-                        Save Changes
-                      </button>
-                      <button
-                        className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 hover:cursor-pointer"
+                      <Button
+                        color="blue"
+                        text="save changes"
+                        onClick={(e) => handleSaveChanges()}
+                      />
+                      <Button
+                        color="gray"
+                        text="cancel"
                         onClick={closeEditModal}
-                      >
-                        Cancel
-                      </button>
+                      />
                     </div>
                   </div>
                 </div>
@@ -194,30 +168,17 @@ const AvailableProducts = () => {
                     <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
                     <p>Are you sure you want to delete this product?</p>
                     <div className="flex gap-2 mt-4 justify-center">
-                      <button
-                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 hover:cursor-pointer"
-                        onClick={confirmDelete}
-                      >
-                        Yes
-                      </button>
-                      <button
-                        className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 hover:cursor-pointer"
-                        onClick={cancelDelete}
-                      >
-                        No
-                      </button>
+                      <Button color="red" text="yes" onClick={confirmDelete} />
+                      <Button color="gray" text="no" onClick={cancelDelete} />
                     </div>
                   </div>
                 </div>
               )}
-
-              <button
-                id={`confirm-delete-${item.id}`}
-                className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 hover:cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-gray-700 shadow-gray-500 drop-shadow-cyan-700`}
+              <Button
+                color="red"
+                text="delete"
                 onClick={() => openModal(item.id)}
-              >
-                Delete
-              </button>
+              />
             </div>
           ))}
         </ul>

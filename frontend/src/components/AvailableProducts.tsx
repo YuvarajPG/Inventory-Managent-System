@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { ProductType } from "../types/Product";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
+import ProductCard from "./ProductCard";
+import DeleteModal from "./modal/DeleteModal";
+import EditModal from "./modal/EditModal";
 interface props {
   productList: ProductType[];
-  setProductList: React.Dispatch<React.SetStateAction<ProductType[]>>;
+  setProductList: Dispatch<React.SetStateAction<ProductType[]>>;
 }
 const AvailableProducts = ({ productList, setProductList }: props) => {
   /* delete modal */
@@ -71,118 +72,31 @@ const AvailableProducts = ({ productList, setProductList }: props) => {
   };
 
   return (
-    <div className="flex items-center gap-4 flex-col ">
+    <div className=" flex flex-col items-center">
       <hr className="border-t-2 border-gray-300 w-full" />
-      <div className=" ">
-        <ul className="flex gap-4 mt-4 flex-wrap justify-center marker:-none mx-4 cursor-default">
-          {productList.map((item) => (
-            <div
-              key={item.id}
-              className={
-                "gap-2 flex flex-col bg-slate-400 p-4 rounded-lg min-w-45 max-w-35 justify-between shadow-lg hover:shadow-2xl hover:shadow-gray-700 hover:cursor-pointer shadow-gray-500"
-              }
-            >
-              <li className="font-bold w-">{item.name}</li>
-              <li className="font-semibold">Brand: {item.brand}</li>
-              <li>Price: ${item.price}</li>
-              <li>Stock: {item.stock}</li>
-              <li>Ram: {item.details.ram}</li>
-              <li>Rom: {item.details.rom}</li>
-              <div className="flex gap-2 mt-2 justify-center"></div>
-              <Button
-                text="edit"
-                color="green"
-                onClick={() => handleEdit(item.id)}
-              />
-
-              {/* modal */}
-              {editModalOpen && selectedProduct?.id === item.id && (
-                <div className="fixed inset-0 bg-white/10 backdrop-blur-md border border-white/20 bg-opacity-50 flex items-center justify-center flex-col z-50">
-                  <div className="bg-white p-6 rounded-lg">
-                    <h2 className="text-xl font-bold mb-4">Edit Product</h2>
-                    <p>Edit details for {selectedProduct.name}</p>
-                    <Input
-                      text="price"
-                      value={selectedProduct.price}
-                      onChange={(e) =>
-                        setSelectedProduct({
-                          ...selectedProduct,
-                          price: Number(e.target.value),
-                        })
-                      }
-                    />
-                    <Input
-                      text="stock : "
-                      value={selectedProduct.stock}
-                      onChange={(e) =>
-                        setSelectedProduct({
-                          ...selectedProduct,
-                          stock: Number(e.target.value),
-                        })
-                      }
-                    />
-                    <Input
-                      text="RAM : "
-                      value={selectedProduct.details.ram}
-                      onChange={(e) =>
-                        setSelectedProduct({
-                          ...selectedProduct,
-                          details: {
-                            ...selectedProduct.details,
-                            ram: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                    <Input
-                      value={selectedProduct.details.rom}
-                      text="ROM : "
-                      onChange={(e) =>
-                        setSelectedProduct({
-                          ...selectedProduct,
-                          details: {
-                            ...selectedProduct.details,
-                            rom: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                    <div className="flex gap-2 mt-4 justify-center">
-                      <Button
-                        color="blue"
-                        text="save changes"
-                        onClick={() => handleSaveChanges()}
-                      />
-                      <Button
-                        color="gray"
-                        text="cancel"
-                        onClick={closeEditModal}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-              {modalOpen && selectedProductId === item.id && (
-                <div className="fixed inset-0 bg-white/10 backdrop-blur-md border border-white/20 bg-opacity-50 flex items-center justify-center flex-col z-50">
-                  <div className="bg-white p-6 rounded-lg">
-                    <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
-                    <p>Are you sure you want to delete this product?</p>
-                    <div className="flex gap-2 mt-4 justify-center">
-                      <Button color="red" text="yes" onClick={confirmDelete} />
-                      <Button color="gray" text="no" onClick={cancelDelete} />
-                    </div>
-                  </div>
-                </div>
-              )}
-              <Button
-                color="red"
-                text="delete"
-                onClick={() => openModal(item.id)}
-              />
-            </div>
-          ))}
-        </ul>
-      </div>
+      <p className="font-bold text-lg">Available Products</p>
+      <ul className="flex items-center justify-center gap-4">
+        {productList.map((item) => (
+          <ProductCard
+            key={item.id}
+            product={item}
+            onEdit={handleEdit}
+            onDelete={openModal}
+          />
+        ))}
+        <DeleteModal
+          onCancel={cancelDelete}
+          onConfirm={confirmDelete}
+          open={modalOpen}
+        />
+        <EditModal
+          open={editModalOpen}
+          product={selectedProduct}
+          setProduct={setSelectedProduct}
+          onSave={handleSaveChanges}
+          onClose={closeEditModal}
+        />
+      </ul>
     </div>
   );
 };

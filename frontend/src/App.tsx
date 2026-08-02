@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AvailableProducts from "./components/AvailableProducts";
-import AddProduct from "./components/ui/AddProduct";
+import AddProduct from "./components/AddProduct";
 import Navbar from "./components/ui/Navbar";
 import { ProductType } from "./types/Product";
 import { products } from "./data/data";

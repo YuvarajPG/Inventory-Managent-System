@@ -48,28 +48,28 @@ export const products: ProductType[] = [
       },
       timestamp: "vwfe",
     },
-    {
-      id: "79b8540b",
-      name: "redmi",
-      brand: "redmi",
-      price: 20,
-      stock: 99,
-      details: {
-        ram: "6",
-        rom: "128",
-      },
-      timestamp: "2026-07-24T06:43:11.516Z",
-    },
-    {
-      id: "ca3a39d4",
-      name: "redmi note 12",
-      brand: "redmi",
-      price: 88,
-      stock: 88,
-      details: {
-        ram: "12",
-        rom: "126",
-      },
-      timestamp: "2026-07-24T06:46:18.435Z",
-    },
+    // {
+    //   id: "79b8540b",
+    //   name: "redmi",
+    //   brand: "redmi",
+    //   price: 20,
+    //   stock: 99,
+    //   details: {
+    //     ram: "6",
+    //     rom: "128",
+    //   },
+    //   timestamp: "2026-07-24T06:43:11.516Z",
+    // },
+    // {
+    //   id: "ca3a39d4",
+    //   name: "redmi note 12",
+    //   brand: "redmi",
+    //   price: 88,
+    //   stock: 88,
+    //   details: {
+    //     ram: "12",
+    //     rom: "126",
+    //   },
+    //   timestamp: "2026-07-24T06:46:18.435Z",
+    // },
   ];

@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import { Captialize } from "../../util/Captialize";
 
 const colors = {
   slate: "bg-slate-500 hover:bg-slate-600",
@@ -41,9 +42,9 @@ const Button = ({ color, text, onClick }: prop) => {
   return (
     <button
       onClick={onClick}
-      className={`${colors[color]} hover:cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-gray-700 shadow-gray-500 text-white px-4 py-2 rounded-lg bg-${color}-100`}
+      className={`${colors[color]} hover:cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-gray-700 shadow-gray-500 text-white px-4 py-2 rounded-lg bg-${color}-100 min-w-20 max-w-24`}
     >
-      {text.charAt(0).toUpperCase() + text.slice(1)}
+      {Captialize(text)}
     </button>
   );
 };

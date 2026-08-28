@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProductType } from "../../types/Product";
+import ProductType  from "../../types/Product";
 
 interface ProductModalProps {
   isOpen: boolean;
@@ -34,8 +34,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
       setBrand("");
       setPrice(0);
       setStock(0);
-      setRam("6 GB");
-      setRom("128 GB");
+      setRam("");
+      setRom("");
     }
   }, [productToEdit, isOpen]);
 
@@ -55,7 +55,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         ram: ram.trim() || "N/A",
         rom: rom.trim() || "N/A",
       },
-      timestamp: productToEdit ? productToEdit.timestamp : new Date().toISOString(),
+      timestamp: productToEdit
+        ? productToEdit.timestamp
+        : new Date().toISOString(),
     };
 
     onSave(productData);
@@ -65,9 +67,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
       <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl shadow-indigo-950/50 relative overflow-hidden">
-        
         {/* Decorative Top Gradient Accent */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400" />
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-indigo-500 via-cyan-400 to-emerald-400" />
 
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-800">
@@ -76,15 +77,27 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               {productToEdit ? "Edit Product" : "Add New Product"}
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              {productToEdit ? "Update inventory details" : "Create a new product listing"}
+              {productToEdit
+                ? "Update inventory details"
+                : "Create a new product listing"}
             </p>
           </div>
           <button
             onClick={onClose}
             className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -92,7 +105,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
             {/* Name */}
             <div className="sm:col-span-2">
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
@@ -134,7 +146,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 step="0.01"
                 required
                 value={price}
-                onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
+                onChange={(e) =>
+                  setPrice(e.target.value === "" ? "" : Number(e.target.value))
+                }
                 placeholder="0.00"
                 className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
@@ -150,7 +164,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 min="0"
                 required
                 value={stock}
-                onChange={(e) => setStock(e.target.value === "" ? "" : Number(e.target.value))}
+                onChange={(e) =>
+                  setStock(e.target.value === "" ? "" : Number(e.target.value))
+                }
                 placeholder="0"
                 className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
@@ -183,7 +199,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
-
           </div>
 
           {/* Action Buttons */}
@@ -197,13 +212,12 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 active:scale-[0.98] shadow-md shadow-indigo-600/30 border border-indigo-400/30 transition-all cursor-pointer"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-linear-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 active:scale-[0.98] shadow-md shadow-indigo-600/30 border border-indigo-400/30 transition-all cursor-pointer"
             >
               {productToEdit ? "Save Changes" : "Create Product"}
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );

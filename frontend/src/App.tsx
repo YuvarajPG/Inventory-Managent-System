@@ -3,7 +3,7 @@ import Version1Old from "./versions/v1_old/Version1Old";
 import Version2WithoutAi from "./versions/v2_new_without_ai/Version2WithoutAi";
 
 export function App() {
-  const [activeVersion, setActiveVersion] = React.useState<"v1" | "v2">("v2");
+  const [activeVersion, setActiveVersion] = React.useState<"v1" | "v2">("v1");
 
   return (
     <div>

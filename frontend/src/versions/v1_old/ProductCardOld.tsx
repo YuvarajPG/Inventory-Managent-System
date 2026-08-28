@@ -1,4 +1,4 @@
-import { ProductType } from "../../types/Product";
+import ProductType  from "../../types/Product";
 import Button from "../../components/ui/Button";
 
 interface Props {

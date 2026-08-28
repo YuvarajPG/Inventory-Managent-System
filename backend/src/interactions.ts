@@ -2,9 +2,9 @@ import readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";
 import {
   addProducts,
-  findProduct,
+  searchProduct,
   removeProduct,
-  updateDetails,
+  // updateDetails,
   update,
 } from "./IMS";
 import { loadInventory, display } from "./extra";
@@ -56,7 +56,7 @@ const main = async () => {
 };
 main();
 
-const addF = async (): Promise<void> => {
+export const addF = async (): Promise<void> => {
   const inventory = await loadInventory();
 
   const name = await askString("Product name: ");
@@ -92,14 +92,14 @@ const addF = async (): Promise<void> => {
 const findF = async (): Promise<void> => {
   await display();
   const findingItemName = await askString("Product name or id: ");
-  const finded = await findProduct(findingItemName);
+  const finded = await searchProduct(findingItemName);
   finded !== undefined ? console.table([finded]) : null;
 };
 
 const updateF = async (): Promise<void> => {
   await display();
   const product = await askString("which product: ");
-  await findProduct(product);
+  await searchProduct(product);
   const q = `1. Update Price \n2. Update Stock \n3. Update details `;  const forOperation = await askNumber("choice: ", 1, 3);
   const inv = await loadInventory();
 
@@ -116,22 +116,22 @@ const updateF = async (): Promise<void> => {
     }));
   console.table(data);
 
-  switch (forOperation) {
-    case 1:
-      const newPrice = await askNumber("new price: ");
-      await update(product, newPrice, "price").then((p) => console.table([p]));
-      break;
-    case 2:
-      const newStock = await askNumber("new stock: ");
-      await update(product, newStock, "stock").then((p) => console.table([p]));
-      break;
-    case 3:
-      await detailsF(product);
-      break;
-    default:
-      await updateF();
-      console.log("give correct input");
-  }
+  // switch (forOperation) {
+  //   case 1:
+  //     const newPrice = await askNumber("new price: ");
+  //     await update(product, newPrice, "price").then((p) => console.table([p]));
+  //     break;
+  //   case 2:
+  //     const newStock = await askNumber("new stock: ");
+  //     await update(product, newStock, "stock").then((p) => console.table([p]));
+  //     break;
+  //   case 3:
+  //     await detailsF(product);
+  //     break;
+  //   default:
+  //     await updateF();
+  //     console.log("give correct input");
+  // }
 };
 
 const detailsF = async (product: string): Promise<void> => {

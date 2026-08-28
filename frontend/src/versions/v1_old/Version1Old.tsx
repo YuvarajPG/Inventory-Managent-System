@@ -3,7 +3,7 @@ import AvailableProductsOld from "./AvailableProductsOld";
 import AddProduct from "../../components/AddProduct";
 import SearchBar from "../../components/SearchBar";
 import NavbarOld from "./NavbarOld";
-import { ProductType } from "../../types/Product";
+import ProductType  from "../../types/Product";
 import { products as initialProducts } from "../../data/data";
 
 export const Version1Old: React.FC = () => {

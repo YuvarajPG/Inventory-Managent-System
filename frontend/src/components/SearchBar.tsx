@@ -1,17 +1,14 @@
-import { products } from "../data/data";
-import { ProductType } from "../types/Product";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { searchProductsAPI } from "../../api/api";
+import ProductType from "../types/Product";
 import Input from "./ui/Input";
 interface props {
-  setProductList: React.Dispatch<React.SetStateAction<ProductType[]>>;
+  setProductList: Dispatch<SetStateAction<ProductType[]>>;
 }
 const SearchBar = ({ setProductList }: props) => {
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = async (event: ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value.toLowerCase();
-    const filtered = products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm) ||
-        product.brand.toLowerCase().includes(searchTerm),
-    );
+    const filtered = await searchProductsAPI(searchTerm);
     setProductList(filtered);
   };
 
@@ -21,7 +18,7 @@ const SearchBar = ({ setProductList }: props) => {
       <div className="flex justify-center items-center text-center">
         <Input
           text="search : "
-          placeholder="searching product"
+          placeholder="search product"
           onChange={handleSearch}
         />
       </div>

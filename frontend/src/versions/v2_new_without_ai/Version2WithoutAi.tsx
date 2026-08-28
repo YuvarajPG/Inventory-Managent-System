@@ -1,39 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/ui/Navbar";
 import { DashboardStats } from "../../components/DashboardStats";
 import AvailableProducts from "../../components/AvailableProducts";
 import { ProductModal } from "../../components/modal/ProductModal";
-import { ProductType } from "../../types/Product";
-import { products as initialProducts } from "../../data/data";
+import ProductType from "../../types/Product";
+import {
+  deleteAPI,
+  editProductAPI,
+  getProducts,
+  searchProductsAPI,
+} from "../../../api/api";
 
 export const Version2WithoutAi: React.FC = () => {
-  const [productList, setProductList] = useState<ProductType[]>(initialProducts);
+  const [productList, setProductList] = useState<ProductType[]>([]);
+
+  useEffect(() => {
+    async function load() {
+      setProductList(await getProducts());
+    }
+
+    load();
+  }, []);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState<ProductType | null>(null);
 
   const handleOpenAddModal = () => {
-    setProductToEdit(null);
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (product: ProductType) => {
-    setProductToEdit(product);
+  const handleOpenEditModal = async (product: ProductType) => {
+    const update = await editProductAPI(product);
+    setProductToEdit(update);
     setIsModalOpen(true);
   };
 
-  const handleSaveProduct = (product: ProductType) => {
+  const handleSaveProduct = async (product: ProductType) => {
     if (productToEdit) {
       setProductList((prev) =>
-        prev.map((item) => (item.id === product.id ? product : item))
+        prev.map((item) => (item.id === product.id ? product : item)),
       );
-    } else {
-      setProductList((prev) => [product, ...prev]);
     }
   };
 
-  const handleDeleteProduct = (id: string) => {
-    setProductList((prev) => prev.filter((item) => item.id !== id));
+  const handleDeleteProduct = async (id: string) => {
+    const deleteItem = await deleteAPI(id);
+    setProductList((prev) => prev.filter((item) => item.id !== deleteItem));
   };
 
   const handleUpdateStock = (id: string, delta: number) => {
@@ -44,8 +56,12 @@ export const Version2WithoutAi: React.FC = () => {
           return { ...item, stock: newStock };
         }
         return item;
-      })
+      }),
     );
+  };
+  const handleSearch = async (text: string) => {
+    setSearchTerm(text);
+    setProductList(await searchProductsAPI(text));
   };
 
   return (
@@ -54,7 +70,7 @@ export const Version2WithoutAi: React.FC = () => {
       <Navbar
         onOpenAddModal={handleOpenAddModal}
         searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
+        onSearch={handleSearch}
       />
 
       {/* Main Standard View (No AI) */}

@@ -5,7 +5,6 @@ import {
   removedData,
   timeStampGen,
   savingData,
-  display,
 } from "./extra";
 
 /* functions */
@@ -29,22 +28,17 @@ export const addProducts = async (
   }
 };
 
-export const removeProduct = async (
-  name: string,
-): Promise<invType[] | undefined> => {
+export const removeProduct = async (id: string): Promise<invType[]> => {
   const inventory = await loadInventory();
 
   if (inventory.length !== 0) {
-    const removed = inventory.filter((item) =>
-      item.name.toLowerCase().includes(name.toLowerCase()),
-    );
-    const filtered = inventory.filter(
-      (item) => !item.name.toLowerCase().includes(name.toLowerCase()),
-    );
+    const removed = inventory.filter((item) => item.id.includes(id));
+    const filtered = inventory.filter((item) => !item.id.includes(id));
     await removedData(removed);
     await savingData(filtered);
-    return removed;
+    return filtered;
   }
+  throw new Error("Product is not available");
 };
 
 export const sortByAlphabet = async (type: string): Promise<invType[]> => {
@@ -57,15 +51,26 @@ export const sortByAlphabet = async (type: string): Promise<invType[]> => {
   throw new Error("the data's doesnt exist");
 };
 
-export const findProduct = async (
+export const searchProduct = async (search: string): Promise<invType[]> => {
+  const inventory = await loadInventory();
+  if (inventory.length !== 0) {
+    const find = inventory.filter((item) =>
+      item.name.toLowerCase().includes(search),
+    );
+    return find;
+  } else {
+    throw new Error("<h1>NOT DATA WAS FOUND</h1>");
+  }
+};
+
+export const findProductByID = async (
   search: string,
 ): Promise<invType | undefined> => {
   const inventory = await loadInventory();
   if (inventory.length === 0) return;
   else {
-    const find = inventory.find(
-      (item) =>
-        item.id.includes(search) || item.name.toLowerCase().includes(search),
+    const find = inventory.find((item) =>
+      item.id.toLowerCase().includes(search),
     );
     if (find === undefined) {
       throw new Error("Product not found");
@@ -73,49 +78,35 @@ export const findProduct = async (
     return find;
   }
 };
-
 export const update = async (
-  product: string,
-  value: number | string,
-  field: "price" | "stock" | "brand",
+  id: string,
+  updates: Partial<invType>,
 ): Promise<invType | void> => {
-  const finded = await findProduct(product);
   const inventory = await loadInventory();
-  if (finded !== undefined) {
-    switch (field) {
-      case "price":
-      case "stock":
-        finded[field] = value as number;
-        await savingData(inventory);
-        return finded;
-
-      case "brand":
-        finded[field] = value as string;
-        await savingData(inventory);
-        return finded;
-    }
+  const finded = inventory.find((i) => i.id === id);
+  if (!finded) return;
+  if (updates.name !== undefined) {
+    finded.name = updates.name;
   }
-};
-console.log(update("redmi note 12", 88, "price"));
-
-export const updateDetails = async (
-  product: string,
-  newDetails: Partial<invType["details"]>,
-): Promise<invType | void> => {
-  const finded = await findProduct(product);
-  const inventory = await loadInventory();
-
-  if (finded !== undefined) {
-    if (finded.details.ram !== undefined) {
-      finded.details.ram = newDetails.ram!;
-      await savingData(inventory);
-      return finded;
-    }
-
-    if (finded.details.rom !== undefined) {
-      finded.details.rom = newDetails.rom!;
-      await savingData(inventory);
-      return finded;
-    }
+  if (updates.price !== undefined) {
+    finded.price = updates.price;
   }
+
+  if (updates.stock !== undefined) {
+    finded.stock = updates.stock;
+  }
+
+  if (updates.brand !== undefined) {
+    finded.brand = updates.brand;
+  }
+
+  if (updates.details?.ram !== undefined) {
+    finded.details.ram = updates.details!.ram;
+  }
+
+  if (updates.details?.rom !== undefined) {
+    finded.details.rom = updates.details!.rom;
+  }
+  await savingData(inventory);
+  return finded;
 };

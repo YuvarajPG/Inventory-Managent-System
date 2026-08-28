@@ -1,8 +1,9 @@
 import React, { Dispatch, useState } from "react";
-import { ProductType } from "../../types/Product";
+import ProductType from "../../types/Product";
 import ProductCardOld from "./ProductCardOld";
 import DeleteModal from "../../components/modal/DeleteModal";
 import EditModal from "../../components/modal/EditModal";
+import { deleteAPI, editProductAPI } from "../../../api/api";
 
 interface Props {
   productList: ProductType[];
@@ -11,13 +12,15 @@ interface Props {
 
 const AvailableProductsOld = ({ productList, setProductList }: Props) => {
   /* delete modal */
-  const handleDelete = (id: string) => {
-    setProductList((prev) => prev.filter((product) => product.id !== id));
+  const handleDelete = async (item: string) => {
+    setProductList(await deleteAPI(item));
   };
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null,
+  );
 
-  const openModal = (id: string) => {
+  const openModal = async (id: string) => {
     setSelectedProductId(id);
     setModalOpen(true);
   };
@@ -27,9 +30,9 @@ const AvailableProductsOld = ({ productList, setProductList }: Props) => {
     setModalOpen(false);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (selectedProductId) {
-      handleDelete(selectedProductId);
+      await handleDelete(selectedProductId);
       deleteCloseModal();
     }
   };
@@ -40,7 +43,9 @@ const AvailableProductsOld = ({ productList, setProductList }: Props) => {
 
   /* edit modal */
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
+    null,
+  );
 
   const openEditModal = (product: ProductType) => {
     setSelectedProduct(product);
@@ -52,14 +57,12 @@ const AvailableProductsOld = ({ productList, setProductList }: Props) => {
     setEditModalOpen(false);
   };
 
-  const handleSaveChanges = () => {
-    if (selectedProduct) {
-      setProductList((prev) =>
-        prev.map((product) =>
-          product.id === selectedProduct.id ? selectedProduct : product
-        )
-      );
-    }
+  const handleSaveChanges = async () => {
+    if (!selectedProduct) return;
+    const updated = await editProductAPI(selectedProduct);
+    setProductList((prev) =>
+      prev.map((p) => (p.id === updated.id ? updated : p)),
+    );
     closeEditModal();
   };
 

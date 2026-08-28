@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductType } from "../../types/Product";
+import  ProductType  from "../../types/Product";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
@@ -20,7 +20,16 @@ const EditModal = ({ open, product, setProduct, onSave, onClose }: Props) => {
         <h2 className="text-xl font-bold">Edit Product</h2>
 
         <p className="font-semibold">{product.name}</p>
-
+        <Input
+          text="Name"
+          value={product.name}
+          onChange={(e) =>
+            setProduct({
+              ...product,
+              name: e.target.value,
+            })
+          }
+        />
         <Input
           text="Price"
           type="number"

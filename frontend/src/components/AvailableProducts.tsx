@@ -26,7 +26,6 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
     "name" | "price-asc" | "price-desc" | "stock"
   >("name");
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
-
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   // Extract unique brands
@@ -35,7 +34,7 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
     ...Array.from(new Set(productList.map((p) => p.brand))).filter(Boolean),
   ];
 
-  // Filter & Search Logic
+  // Filtering logic
   const filteredProducts = productList
     .filter((product) => {
       const matchesSearch =
@@ -77,18 +76,18 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Controls Bar */}
-      <div className="bg-slate-800/50 backdrop-blur-md border border-slate-700/60 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
-        {/* Brand Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+      {/* Interactive Toolbar Header */}
+      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-4 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-4">
+        {/* Brand Selector Chips */}
+        <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 scrollbar-none">
           {brands.map((brand) => (
             <button
               key={brand}
               onClick={() => setSelectedBrand(brand)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 selectedBrand.toLowerCase() === brand.toLowerCase()
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                  : "bg-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-700/60 border border-slate-700/50"
+                  ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/30"
+                  : "bg-slate-800/60 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-700/60"
               }`}
             >
               {brand}
@@ -96,13 +95,13 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
           ))}
         </div>
 
-        {/* Filters & View Switches */}
-        <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
-          {/* Stock Filter Dropdown */}
+        {/* Filters & View Switching */}
+        <div className="flex items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+          {/* Stock Level Filter */}
           <select
             value={stockFilter}
             onChange={(e) => setStockFilter(e.target.value as any)}
-            className="bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="bg-slate-800/80 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-inner cursor-pointer"
           >
             <option value="all">All Stock Status</option>
             <option value="inStock">In Stock (&gt; 5)</option>
@@ -114,7 +113,7 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="bg-slate-800/80 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-inner cursor-pointer"
           >
             <option value="name">Sort by Name</option>
             <option value="price-asc">Price: Low to High</option>
@@ -123,13 +122,13 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
           </select>
 
           {/* Grid vs Table View Switch */}
-          <div className="flex items-center bg-slate-900/80 rounded-xl p-1 border border-slate-700">
+          <div className="flex items-center bg-slate-950/80 rounded-xl p-1 border border-slate-800 shadow-inner">
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-1.5 rounded-lg transition-all ${
+              className={`p-2 rounded-lg transition-all cursor-pointer ${
                 viewMode === "grid"
-                  ? "bg-slate-700 text-indigo-400"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-white"
               }`}
               title="Grid View"
             >
@@ -149,10 +148,10 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
             </button>
             <button
               onClick={() => setViewMode("table")}
-              className={`p-1.5 rounded-lg transition-all ${
+              className={`p-2 rounded-lg transition-all cursor-pointer ${
                 viewMode === "table"
-                  ? "bg-slate-700 text-indigo-400"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-white"
               }`}
               title="Table View"
             >
@@ -174,12 +173,12 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Content Layout */}
       {filteredProducts.length === 0 ? (
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-12 text-center my-8">
-          <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto text-slate-400 mb-3">
+        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-16 text-center my-8 shadow-xl">
+          <div className="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto text-slate-500 mb-4 shadow-inner">
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -187,21 +186,20 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
           </div>
-          <h4 className="text-base font-semibold text-slate-200">
-            No products found
+          <h4 className="text-lg font-bold text-white tracking-tight">
+            No matching inventory items
           </h4>
-          <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-            Try adjusting your search criteria, brand filter, or stock level
-            filter.
+          <p className="text-xs text-slate-400 mt-1.5 max-w-sm mx-auto">
+            Try adjusting your search query, brand filter chips, or stock level dropdown.
           </p>
         </div>
       ) : viewMode === "grid" ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -213,42 +211,42 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
           ))}
         </div>
       ) : (
-        /* Table View */
-        <div className="bg-slate-800/60 backdrop-blur-md border border-slate-700/60 rounded-2xl overflow-hidden shadow-xl">
+        /* Modern Table View */
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-slate-900/80 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-700">
+              <thead className="bg-slate-950/90 text-[11px] font-black text-slate-400 uppercase tracking-wider border-b border-slate-800">
                 <tr>
-                  <th className="px-6 py-4">Product</th>
+                  <th className="px-6 py-4">Product Name</th>
                   <th className="px-6 py-4">Brand</th>
-                  <th className="px-6 py-4">Price</th>
+                  <th className="px-6 py-4">Unit Price</th>
                   <th className="px-6 py-4">Specs (RAM / ROM)</th>
-                  <th className="px-6 py-4">Stock</th>
+                  <th className="px-6 py-4">Stock Level</th>
                   <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-700/50">
+              <tbody className="divide-y divide-slate-800/60">
                 {filteredProducts.map((product) => {
                   const isOut = product.stock === 0;
                   const isLow = product.stock > 0 && product.stock <= 5;
                   return (
                     <tr
                       key={product.id}
-                      className="hover:bg-slate-700/30 transition-colors"
+                      className="hover:bg-slate-800/40 transition-colors"
                     >
-                      <td className="px-6 py-4 font-semibold text-white">
+                      <td className="px-6 py-4 font-bold text-white">
                         {product.name}
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-xs uppercase px-2 py-0.5 rounded bg-slate-700 border border-slate-600 text-slate-300 font-medium">
+                        <span className="text-[10px] uppercase px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-bold">
                           {product.brand}
                         </span>
                       </td>
-                      <td className="px-6 py-4 font-bold text-emerald-400">
+                      <td className="px-6 py-4 font-black text-emerald-400">
                         ${product.price}
                       </td>
-                      <td className="px-6 py-4 text-xs text-slate-400">
-                        {product.details?.ram} / {product.details?.rom}
+                      <td className="px-6 py-4 text-xs font-medium text-slate-400">
+                        {product.details?.ram || "N/A"} / {product.details?.rom || "N/A"}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
@@ -257,11 +255,11 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
                               isOut
                                 ? "bg-rose-500"
                                 : isLow
-                                  ? "bg-amber-500"
-                                  : "bg-emerald-500"
+                                ? "bg-amber-500"
+                                : "bg-emerald-500"
                             }`}
                           />
-                          <span className="font-semibold">
+                          <span className="font-bold text-white">
                             {product.stock} units
                           </span>
                         </div>
@@ -270,7 +268,7 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
                         <div className="flex items-center justify-end gap-2">
                           <button
                             onClick={() => onEdit(product)}
-                            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-all"
+                            className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
                             title="Edit"
                           >
                             <svg
@@ -289,7 +287,7 @@ const AvailableProducts: React.FC<AvailableProductsProps> = ({
                           </button>
                           <button
                             onClick={() => handleDeleteClick(product.id)}
-                            className="p-1.5 rounded-lg text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 transition-all"
+                            className="p-2 rounded-xl text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 transition-all cursor-pointer"
                             title="Delete"
                           >
                             <svg

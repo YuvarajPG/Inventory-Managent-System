@@ -1,4 +1,4 @@
-import { ProductType } from "../types/Product";
+import ProductType from "../types/Product";
 import { getProducts } from "../../api/api";
 // export const products: ProductType[] = [
 //     {

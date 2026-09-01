@@ -2,26 +2,29 @@ import React from "react";
 
 interface DeleteModalProps {
   open: boolean;
-  onConfirm: () => void;
   onCancel: () => void;
+  onConfirm: () => void;
   productName?: string;
 }
 
 const DeleteModal: React.FC<DeleteModalProps> = ({
   open,
-  onConfirm,
   onCancel,
+  onConfirm,
   productName,
 }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative overflow-hidden">
-        {/* Warning Icon Banner */}
-        <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 mb-4 mx-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+      <div className="bg-slate-900/95 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl shadow-rose-950/40 relative overflow-hidden text-center">
+        {/* Accent Glow Top Border */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 via-amber-500 to-rose-600" />
+
+        {/* Warning Icon Circle */}
+        <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 shadow-inner">
           <svg
-            className="w-6 h-6"
+            className="w-7 h-7"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -35,33 +38,27 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           </svg>
         </div>
 
-        <div className="text-center">
-          <h3 className="text-lg font-bold text-white">Delete Product</h3>
-          <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-            Are you sure you want to delete{" "}
-            {productName ? (
-              <span className="text-slate-200 font-semibold">
-                "{productName}"
-              </span>
-            ) : (
-              "this product"
-            )}
-            ? This action cannot be undone.
-          </p>
-        </div>
+        <h3 className="text-xl font-black text-white tracking-tight">
+          Delete Product?
+        </h3>
+        <p className="text-xs text-slate-400 mt-2 max-w-xs mx-auto leading-relaxed font-medium">
+          Are you sure you want to permanently remove{" "}
+          <strong className="text-slate-100">{productName || "this item"}</strong> from your inventory system? This action cannot be undone.
+        </p>
 
-        <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-slate-800">
+        {/* Buttons */}
+        <div className="flex items-center justify-center gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="w-full py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all cursor-pointer"
+            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-rose-600 hover:bg-rose-500 active:scale-[0.98] shadow-md shadow-rose-600/30 border border-rose-500/30 transition-all cursor-pointer"
+            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 shadow-lg shadow-rose-600/30 border border-rose-400/30 active:scale-95 transition-all cursor-pointer"
           >
-            Delete
+            Delete Item
           </button>
         </div>
       </div>

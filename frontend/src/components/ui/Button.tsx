@@ -1,4 +1,4 @@
-import { FormEvent, MouseEventHandler, SubmitEventHandler } from "react";
+import { MouseEventHandler } from "react";
 import { Captialize } from "../../util/Captialize";
 
 const colors = {

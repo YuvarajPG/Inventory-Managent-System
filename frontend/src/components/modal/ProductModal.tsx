@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductType  from "../../types/Product";
+import ProductType from "../../types/Product";
 
 interface ProductModalProps {
   isOpen: boolean;
@@ -65,26 +65,26 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl shadow-indigo-950/50 relative overflow-hidden">
-        {/* Decorative Top Gradient Accent */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-indigo-500 via-cyan-400 to-emerald-400" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+      <div className="bg-slate-900/95 border border-slate-800 rounded-3xl max-w-lg w-full p-7 shadow-2xl shadow-indigo-950/60 relative overflow-hidden">
+        {/* Accent Glow Line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400" />
 
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div className="flex items-center justify-between pb-5 border-b border-slate-800">
           <div>
-            <h2 className="text-xl font-bold text-white">
-              {productToEdit ? "Edit Product" : "Add New Product"}
+            <h2 className="text-xl font-black text-white tracking-tight">
+              {productToEdit ? "Edit Product" : "Add New Inventory Item"}
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-400 mt-0.5 font-medium">
               {productToEdit
-                ? "Update inventory details"
-                : "Create a new product listing"}
+                ? "Update specs and stock quantity"
+                : "Register a brand new item into stock"}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all"
+            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
           >
             <svg
               className="w-5 h-5"
@@ -103,11 +103,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Name */}
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                 Product Name *
               </label>
               <input
@@ -115,14 +115,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. iPhone 16 Pro"
-                className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="e.g. Galaxy S24 Ultra"
+                className="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
 
             {/* Brand */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                 Brand *
               </label>
               <input
@@ -130,15 +130,15 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 required
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="e.g. Apple"
-                className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="e.g. Samsung"
+                className="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
 
             {/* Price */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Price ($) *
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                Unit Price ($) *
               </label>
               <input
                 type="number"
@@ -150,13 +150,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   setPrice(e.target.value === "" ? "" : Number(e.target.value))
                 }
                 placeholder="0.00"
-                className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
 
             {/* Stock */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                 Initial Stock *
               </label>
               <input
@@ -168,51 +168,51 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   setStock(e.target.value === "" ? "" : Number(e.target.value))
                 }
                 placeholder="0"
-                className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
 
             {/* RAM */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                 RAM Spec
               </label>
               <input
                 type="text"
                 value={ram}
                 onChange={(e) => setRam(e.target.value)}
-                placeholder="e.g. 8 GB"
-                className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="e.g. 12 GB"
+                className="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
 
             {/* ROM */}
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                 ROM / Storage Spec
               </label>
               <input
                 type="text"
                 value={rom}
                 onChange={(e) => setRom(e.target.value)}
-                placeholder="e.g. 256 GB"
-                className="w-full px-3.5 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="e.g. 512 GB"
+                className="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-5 border-t border-slate-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all cursor-pointer"
+              className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-linear-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 active:scale-[0.98] shadow-md shadow-indigo-600/30 border border-indigo-400/30 transition-all cursor-pointer"
+              className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 shadow-lg shadow-indigo-600/30 border border-indigo-400/30 active:scale-95 transition-all cursor-pointer"
             >
               {productToEdit ? "Save Changes" : "Create Product"}
             </button>

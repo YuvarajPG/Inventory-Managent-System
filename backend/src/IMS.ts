@@ -83,7 +83,7 @@ export const update = async (
   updates: Partial<invType>,
 ): Promise<invType | void> => {
   const inventory = await loadInventory();
-  const finded = inventory.find((i) => i.id === id);
+  const finded = inventory.find((item) => item.id === id);
   if (!finded) return;
   if (updates.name !== undefined) {
     finded.name = updates.name;

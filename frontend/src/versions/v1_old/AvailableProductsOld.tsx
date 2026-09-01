@@ -72,7 +72,6 @@ const AvailableProductsOld = ({ productList, setProductList }: Props) => {
       openEditModal(productToEdit);
     }
   };
-
   return (
     <div className="flex flex-col items-center">
       <hr className="border-t-2 border-gray-300 w-full" />

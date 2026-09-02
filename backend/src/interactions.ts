@@ -131,17 +131,14 @@ const detailsF = async (product: string): Promise<void> => {
   const forWhich = await askNumber("choice: ");
   switch (forWhich) {
     case 1:
-<<<<<<< HEAD
-      const newDetailsRam = await askDetails("RAM: ", [2, 4, 6, 8, 12, 16]);
-      update(product, { details: { ram: newDetailsRam } }).then((p) =>
-        console.table([p]),
-      );
-=======
+      // const newDetailsRam = await askDetails("RAM: ", [2, 4, 6, 8, 12, 16]);
+      // update(product, { details: { ram: newDetailsRam } }).then((p) =>
+      //   console.table([p]),
+      // );
       // const newDetailsRam = await askDetails("RAM: ", [2, 4, 6, 8, 12, 16]);
       // update(product, { ram: newDetailsRam }).then((p) =>
       //   console.table([p]),
       // );
->>>>>>> 0606e49 (fixed build)
       break;
 
     case 2:
@@ -149,10 +146,12 @@ const detailsF = async (product: string): Promise<void> => {
         "ROM: ",
         [32, 64, 128, 256, 512, 1024],
       );
-<<<<<<< HEAD
-      await update(product, { details: { rom: newDetailsRom } }).then((p) =>
-        console.table([p]),
-      );
+      // await update(product, { details: { rom: newDetailsRom } }).then((p) =>
+      //   console.table([p]),
+      // );
+      // await update(product, { rom: newDetailsRom }).then((p) =>
+      //   console.table([p]),
+      // );
       break;
     case 3:
       const newDetailsBothRom = await askDetails(
@@ -167,7 +166,7 @@ const detailsF = async (product: string): Promise<void> => {
         },
       }).then((p) => console.table([p]));
       break;
-=======
+
       // await update(product, { rom: newDetailsRom }).then((p) =>
       //   console.table([p]),
       // );
@@ -182,7 +181,6 @@ const detailsF = async (product: string): Promise<void> => {
       //   ram: newDetailsBothRam,
       //   rom: newDetailsBothRom,
       // }).then((p) => console.table([p]));
->>>>>>> 0606e49 (fixed build)
     default:
       console.log("ran");
       break;

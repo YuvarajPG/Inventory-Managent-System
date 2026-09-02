@@ -1,6 +1,7 @@
 import ProductType from "../src/types/Product";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://inventory-managent-system-o0yp.onrender.com";
+// const BASE_URL = "http://localhost:3000";
 
 export const getProducts = async (): Promise<ProductType[]> => {
   try {

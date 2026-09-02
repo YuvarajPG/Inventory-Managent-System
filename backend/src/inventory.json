@@ -1,14 +1,146 @@
 [
   {
-    "id": "1wqwqqw",
-    "brand": "redmi",
-    "name": "Readmi 15",
-    "price": 35,
-    "stock": 188,
+    "id": "a81c",
+    "brand": "Samsung",
+    "name": "Galaxy S24",
+    "price": 549,
+    "stock": 15,
     "details": {
-      "ram": "125GB",
-      "rom": "GB"
+      "ram": "8GB",
+      "rom": "128GB"
     },
-    "timestamp": "2026-08-04T10:07:00.000Z"
+    "timestamp": "2026-09-02T02:10:15.274Z"
+  },
+  {
+    "id": "b42d",
+    "brand": "OnePlus",
+    "name": "OnePlus 13R",
+    "price": 599,
+    "stock": 18,
+    "details": {
+      "ram": "12GB",
+      "rom": "256GB"
+    },
+    "timestamp": "2026-09-02T02:12:32.274Z"
+  },
+  {
+    "id": "c73e",
+    "brand": "Google",
+    "name": "Pixel 9",
+    "price": 699,
+    "stock": 9,
+    "details": {
+      "ram": "12GB",
+      "rom": "128GB"
+    },
+    "timestamp": "2026-09-02T02:14:48.274Z"
+  },
+  {
+    "id": "d15f",
+    "brand": "Xiaomi",
+    "name": "Redmi Note 14 Pro",
+    "price": 349,
+    "stock": 27,
+    "details": {
+      "ram": "8GB",
+      "rom": "256GB"
+    },
+    "timestamp": "2026-09-02T02:16:21.274Z"
+  },
+  {
+    "id": "e96g",
+    "brand": "Nothing",
+    "name": "Nothing Phone 3a",
+    "price": 399,
+    "stock": 12,
+    "details": {
+      "ram": "8GB",
+      "rom": "128GB"
+    },
+    "timestamp": "2026-09-02T02:18:05.274Z"
+  },
+  {
+    "id": "f28h",
+    "brand": "Motorola",
+    "name": "Edge 60 Fusion",
+    "price": 399,
+    "stock": 21,
+    "details": {
+      "ram": "8GB",
+      "rom": "256GB"
+    },
+    "timestamp": "2026-09-02T02:20:44.274Z"
+  },
+  {
+    "id": "g54j",
+    "brand": "Realme",
+    "name": "GT 7",
+    "price": 499,
+    "stock": 7,
+    "details": {
+      "ram": "12GB",
+      "rom": "256GB"
+    },
+    "timestamp": "2026-09-02T02:22:19.274Z"
+  },
+  {
+    "id": "h83k",
+    "brand": "Apple",
+    "name": "iPhone 15",
+    "price": 699,
+    "stock": 11,
+    "details": {
+      "ram": "6GB",
+      "rom": "128GB"
+    },
+    "timestamp": "2026-09-02T02:24:51.274Z"
+  },
+  {
+    "id": "j31m",
+    "brand": "Samsung",
+    "name": "Galaxy A56",
+    "price": 449,
+    "stock": 24,
+    "details": {
+      "ram": "8GB",
+      "rom": "128GB"
+    },
+    "timestamp": "2026-09-02T02:26:13.274Z"
+  },
+  {
+    "id": "k72n",
+    "brand": "OnePlus",
+    "name": "Nord CE 4",
+    "price": 299,
+    "stock": 32,
+    "details": {
+      "ram": "8GB",
+      "rom": "128GB"
+    },
+    "timestamp": "2026-09-02T02:28:37.274Z"
+  },
+  {
+    "id": "l45p",
+    "brand": "Vivo",
+    "name": "V50",
+    "price": 429,
+    "stock": 14,
+    "details": {
+      "ram": "8GB",
+      "rom": "256GB"
+    },
+    "timestamp": "2026-09-02T02:30:22.274Z"
+  },
+  {
+    "id": "m86q",
+    "brand": "Oppo",
+    "name": "Reno 13",
+    "price": 449,
+    "stock": 8,
+    "details": {
+      "ram": "8GB",
+      "rom": "256GB"
+    },
+    "timestamp": "2026-09-02T02:32:41.274Z"
   }
 ]

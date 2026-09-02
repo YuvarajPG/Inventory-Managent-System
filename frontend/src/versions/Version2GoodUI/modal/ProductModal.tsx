@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductType from "../../types/Product";
+import ProductType from "../../../types/Product";
 
 interface ProductModalProps {
   isOpen: boolean;

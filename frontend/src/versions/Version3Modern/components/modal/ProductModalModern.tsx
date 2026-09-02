@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import ProductType from "../../types/Product";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import ProductType from "../../../../types/Product";
 
-interface ProductModalProps {
+interface ProductModalModernProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (product: ProductType) => void;
   productToEdit?: ProductType | null;
 }
 
-export const ProductModal: React.FC<ProductModalProps> = ({
+export const ProductModalModern: React.FC<ProductModalModernProps> = ({
   isOpen,
   onClose,
   onSave,
@@ -21,6 +22,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const [ram, setRam] = useState("");
   const [rom, setRom] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const modalBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (productToEdit) {
@@ -41,16 +45,60 @@ export const ProductModal: React.FC<ProductModalProps> = ({
     setErrors({});
   }, [productToEdit, isOpen]);
 
-  // Keyboard shortcut: Escape to close
+  // GSAP Entrance Animation
+  useEffect(() => {
+    if (isOpen && modalBoxRef.current && backdropRef.current) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) return;
+
+      gsap.fromTo(
+        backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        modalBoxRef.current,
+        { opacity: 0, scale: 0.96, y: 8 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.25, ease: "power2.out" }
+      );
+    }
+  }, [isOpen]);
+
+  // Smooth exit handler
+  const handleAnimatedClose = () => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced || !modalBoxRef.current || !backdropRef.current) {
+      onClose();
+      return;
+    }
+
+    gsap.to(modalBoxRef.current, {
+      opacity: 0,
+      scale: 0.97,
+      y: 6,
+      duration: 0.18,
+      ease: "power2.in",
+    });
+
+    gsap.to(backdropRef.current, {
+      opacity: 0,
+      duration: 0.18,
+      ease: "power2.in",
+      onComplete: onClose,
+    });
+  };
+
+  // Keyboard shortcut: Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
-        onClose();
+        handleAnimatedClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -82,25 +130,29 @@ export const ProductModal: React.FC<ProductModalProps> = ({
     };
 
     onSave(productData);
-    onClose();
+    handleAnimatedClose();
   };
 
   return (
     <div
+      ref={backdropRef}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="product-modal-title"
+      aria-labelledby="modern-product-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-2xs"
     >
-      <div className="bg-white border border-slate-300 rounded max-w-md w-full p-4 shadow-md relative">
+      <div
+        ref={modalBoxRef}
+        className="bg-white border border-slate-300 rounded-md max-w-md w-full p-4 shadow-lg relative"
+      >
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-2.5 border-b border-slate-200">
-          <h2 id="product-modal-title" className="text-sm font-semibold text-slate-900">
+          <h2 id="modern-product-modal-title" className="text-sm font-semibold text-slate-900">
             {productToEdit ? "Edit Product" : "Add New Product"}
           </h2>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleAnimatedClose}
             aria-label="Close dialog"
             className="p-1 text-slate-400 hover:text-slate-700 rounded transition-colors text-xs cursor-pointer"
           >
@@ -113,11 +165,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {/* Name */}
             <div className="sm:col-span-2">
-              <label htmlFor="product-name" className="block text-xs font-medium text-slate-700 mb-1">
+              <label htmlFor="modern-product-name" className="block text-xs font-medium text-slate-700 mb-1">
                 Product Name <span className="text-red-500">*</span>
               </label>
               <input
-                id="product-name"
+                id="modern-product-name"
                 type="text"
                 autoFocus
                 value={name}
@@ -134,11 +186,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* Brand */}
             <div>
-              <label htmlFor="product-brand" className="block text-xs font-medium text-slate-700 mb-1">
+              <label htmlFor="modern-product-brand" className="block text-xs font-medium text-slate-700 mb-1">
                 Brand <span className="text-red-500">*</span>
               </label>
               <input
-                id="product-brand"
+                id="modern-product-brand"
                 type="text"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
@@ -154,11 +206,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* Price */}
             <div>
-              <label htmlFor="product-price" className="block text-xs font-medium text-slate-700 mb-1">
+              <label htmlFor="modern-product-price" className="block text-xs font-medium text-slate-700 mb-1">
                 Price ($) <span className="text-red-500">*</span>
               </label>
               <input
-                id="product-price"
+                id="modern-product-price"
                 type="number"
                 min="0"
                 step="0.01"
@@ -176,11 +228,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* Stock */}
             <div>
-              <label htmlFor="product-stock" className="block text-xs font-medium text-slate-700 mb-1">
+              <label htmlFor="modern-product-stock" className="block text-xs font-medium text-slate-700 mb-1">
                 Stock Quantity <span className="text-red-500">*</span>
               </label>
               <input
-                id="product-stock"
+                id="modern-product-stock"
                 type="number"
                 min="0"
                 value={stock}
@@ -197,11 +249,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* RAM */}
             <div>
-              <label htmlFor="product-ram" className="block text-xs font-medium text-slate-700 mb-1">
+              <label htmlFor="modern-product-ram" className="block text-xs font-medium text-slate-700 mb-1">
                 RAM Spec
               </label>
               <input
-                id="product-ram"
+                id="modern-product-ram"
                 type="text"
                 value={ram}
                 onChange={(e) => setRam(e.target.value)}
@@ -212,11 +264,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* ROM */}
             <div className="sm:col-span-2">
-              <label htmlFor="product-rom" className="block text-xs font-medium text-slate-700 mb-1">
+              <label htmlFor="modern-product-rom" className="block text-xs font-medium text-slate-700 mb-1">
                 ROM / Storage Spec
               </label>
               <input
-                id="product-rom"
+                id="modern-product-rom"
                 type="text"
                 value={rom}
                 onChange={(e) => setRom(e.target.value)}
@@ -230,7 +282,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           <div className="flex items-center justify-end gap-2 pt-2.5 border-t border-slate-200">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleAnimatedClose}
               className="px-3 py-1.5 rounded text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors cursor-pointer"
             >
               Cancel
@@ -248,4 +300,4 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   );
 };
 
-export default ProductModal;
+export default ProductModalModern;

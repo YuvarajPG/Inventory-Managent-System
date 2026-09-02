@@ -2,9 +2,10 @@ import { invType } from "./data";
 import {
   idGen,
   loadInventory,
-  removedData,
   timeStampGen,
   savingData,
+  removedInventory,
+  removedSaveData,
 } from "./extra";
 
 /* functions */
@@ -30,11 +31,14 @@ export const addProducts = async (
 
 export const removeProduct = async (id: string): Promise<invType[]> => {
   const inventory = await loadInventory();
-
+  const removedInv = await removedInventory();
   if (inventory.length !== 0) {
-    const removed = inventory.filter((item) => item.id.includes(id));
+    const removed = inventory.find((item) => item.id.includes(id))!;
     const filtered = inventory.filter((item) => !item.id.includes(id));
-    await removedData(removed);
+    if(removedInv.length !== 0){
+      removedInv.push(removed);
+    }
+    await removedSaveData([...removedInv,removed])
     await savingData(filtered);
     return filtered;
   }
@@ -100,12 +104,12 @@ export const update = async (
     finded.brand = updates.brand;
   }
 
-  if (updates.details?.ram !== undefined) {
-    finded.details.ram = updates.details!.ram;
+  if (updates.details?.ram !== undefined && updates.details?.ram !== finded.details.ram) {
+    finded.details.ram = !updates.details.ram.includes("GB")? updates.details!.ram.replace(/\s/g, "") + " GB" : updates.details!.ram;
   }
 
-  if (updates.details?.rom !== undefined) {
-    finded.details.rom = updates.details!.rom;
+  if (updates.details?.rom !== undefined && updates.details?.rom !== finded.details.rom) {
+    finded.details.rom = !updates.details.rom.includes("GB")? updates.details!.rom.replace(/\s/g, "") + " GB" : updates.details!.rom;
   }
   await savingData(inventory);
   return finded;

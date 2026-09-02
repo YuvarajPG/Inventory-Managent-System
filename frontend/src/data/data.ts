@@ -74,4 +74,12 @@ import { getProducts } from "../../api/api";
 //     //   timestamp: "2026-07-24T06:46:18.435Z",
 //     // },
 //   ];
-export const products: ProductType[] = await getProducts();
+let initialProducts: ProductType[] = [];
+try {
+  initialProducts = await getProducts();
+} catch (err) {
+  console.warn("Backend not reachable during initial data module load:", err);
+  initialProducts = [];
+}
+export const products: ProductType[] = initialProducts;
+

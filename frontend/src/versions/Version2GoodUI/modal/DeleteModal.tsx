@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ProductType from "../../types/Product";
+import ProductType from "../../../types/Product";
 
 interface DeleteModalProps {
   product?: ProductType | null;

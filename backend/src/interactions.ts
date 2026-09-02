@@ -11,15 +11,7 @@ import { loadInventory, display } from "./extra";
 import { askDetails, askNumber, askString } from "../utils/vaildation";
 
 export const rl = readline.createInterface({ input, output });
-const op = `====== IMS ======
-
-1. Add Product
-2. Search Product
-3. Update Product
-4. Delete Product
-5. View Inventory
-6. Exit
-				`;
+const op = `====== IMS ======\n\n1. Add Product\n2. Search Product\n3. Update Product\n4. Delete Product\n5. View Inventory\n6. Exit\n\t\t\t\t`;
 console.log(op);
 const main = async () => {
   let flag: boolean = true;
@@ -140,7 +132,7 @@ const detailsF = async (product: string): Promise<void> => {
   switch (forWhich) {
     case 1:
       const newDetailsRam = await askDetails("RAM: ", [2, 4, 6, 8, 12, 16]);
-      updateDetails(product, { ram: newDetailsRam }).then((p) =>
+      update(product, { details: { ram: newDetailsRam } }).then((p) =>
         console.table([p]),
       );
       break;
@@ -150,7 +142,7 @@ const detailsF = async (product: string): Promise<void> => {
         "ROM: ",
         [32, 64, 128, 256, 512, 1024],
       );
-      await updateDetails(product, { ram: newDetailsRom }).then((p) =>
+      await update(product, { details: { rom: newDetailsRom } }).then((p) =>
         console.table([p]),
       );
       break;
@@ -160,10 +152,13 @@ const detailsF = async (product: string): Promise<void> => {
         [32, 64, 128, 256, 512, 1024],
       );
       const newDetailsBothRam = await askDetails("RAM: ", [2, 4, 6, 8, 12, 16]);
-      await updateDetails(product, {
-        ram: newDetailsBothRam,
-        rom: newDetailsBothRom,
+      await update(product, {
+        details: {
+          ram: newDetailsBothRam,
+          rom: newDetailsBothRom,
+        },
       }).then((p) => console.table([p]));
+      break;
     default:
       console.log("ran");
       break;

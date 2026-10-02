@@ -99,7 +99,7 @@ Inventory-Managent-System/
 
 ## 📸 Screenshots
 
-![Inventory Dashboard](https://github.com/YuvarajPG/Inventory-Managent-System/raw/main/frontend/src/assets/WhatsApp%20Image%202026-10-02%20at%2012.00.36%20AM.jpeg)
+![Inventory Dashboard](https://github.com/YuvarajPG/Inventory-Managent-System/blob/main/preview.jpeg)
 
 ---
 

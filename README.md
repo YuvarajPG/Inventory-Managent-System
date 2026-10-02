@@ -1,33 +1,55 @@
 # 📦 Inventory Management System
 
-A full-stack Inventory Management System built with **TypeScript**. The project allows users to manage products through a modern React frontend and a TypeScript backend.
+A full-stack Inventory Management System built with **TypeScript**. It provides a React frontend and a TypeScript/Node.js backend for managing products through REST APIs.
 
-> 🚧 This project is currently under active development.
+> 🚧 **This project is currently under active development.**
+>
+> The current version uses JSON for data persistence. Database integration, authentication, user roles, and additional backend features are planned for future versions.
+
+---
+
+## 🚀 Live Demo
+
+**[Open the live application](https://inventory-managent-system-project.vercel.app/)**
+
+## 💻 GitHub
+
+**[View the source code](https://github.com/YuvarajPG/Inventory-Managent-System)**
 
 ---
 
 ## ✨ Features
 
+### Inventory
+
+- ✅ Add products
+- ✅ Edit products
+- ✅ Delete products
+- ✅ Search products
+- ✅ Update stock levels
+- ✅ Sort and filter inventory
+- ✅ View inventory statistics
+- ✅ Track removed products
+
 ### Backend
 
-- ✅ Add Products
-- ✅ Search Products
-- ✅ Update Products
-- ✅ Delete Products
-- ✅ View Inventory
-- ✅ JSON-based storage
+- ✅ RESTful API
+- ✅ Product CRUD operations
+- ✅ Search API
 - ✅ Input validation
+- ✅ JSON-based persistent storage
 - ✅ TypeScript
 
 ### Frontend
 
-- ✅ Product Cards
-- ✅ Edit Product Modal
-- ✅ Delete Confirmation Modal
-- ✅ Responsive Layout
-- 🚧 Search
-- 🚧 Backend Integration
-- 🚧 Add Product Form
+- ✅ React + TypeScript
+- ✅ Responsive inventory interface
+- ✅ Product table
+- ✅ Add/Edit product modal
+- ✅ Delete confirmation
+- ✅ Search
+- ✅ Sorting and filtering
+- ✅ Stock management
 
 ---
 
@@ -43,17 +65,22 @@ A full-stack Inventory Management System built with **TypeScript**. The project 
 ### Backend
 
 - Node.js
+- Express
 - TypeScript
 - fs/promises
-- readline/promises
+
+### Data Storage
+
+- JSON (`inventory.json`)
+- JSON (`removed.json`)
 
 ---
 
 ## 📁 Project Structure
 
 ```
-Inventory-Management-System/
-
+Inventory-Managent-System/
+│
 ├── frontend/
 │   ├── src/
 │   ├── public/
@@ -72,7 +99,7 @@ Inventory-Management-System/
 
 ## 📸 Screenshots
 
-> Coming Soon
+![Inventory Dashboard](https://github.com/YuvarajPG/Inventory-Managent-System/raw/main/frontend/src/assets/WhatsApp%20Image%202026-10-02%20at%2012.00.36%20AM.jpeg)
 
 ---
 
@@ -82,47 +109,28 @@ Inventory-Management-System/
 
 ```bash
 git clone https://github.com/YuvarajPG/Inventory-Managent-System.git
-
 cd Inventory-Managent-System
 ```
 
----
-
-## Backend
-
-Install dependencies
+### Backend
 
 ```bash
 cd backend
-
 pnpm install
-```
-
-Run
-
-```bash
 pnpm dev
 ```
 
----
+### Frontend
 
-## Frontend
-
-Install dependencies
+Open another terminal:
 
 ```bash
 cd frontend
-
 pnpm install
-```
-
-Run
-
-```bash
 pnpm dev
 ```
 
-Open
+Then open:
 
 ```
 http://localhost:5173
@@ -130,7 +138,7 @@ http://localhost:5173
 
 ---
 
-## Product Model
+## 📦 Product Model
 
 ```ts
 interface Product {
@@ -149,62 +157,59 @@ interface Product {
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
-### Version 1
+### Completed
 
-- [x] CLI Inventory System
-- [x] CRUD Operations
-- [x] JSON Database
-- [x] Validation
+- [x] CLI inventory system
+- [x] CRUD operations
+- [x] JSON data persistence
+- [x] Input validation
+- [x] React frontend
+- [x] Product management UI
+- [x] REST API integration
+- [x] Search
+- [x] Stock management
+- [x] Sorting and filtering
+- [x] Responsive UI
 
-### Version 2
+### Planned
 
-- [x] React Frontend
-- [x] Product Cards
-- [x] Edit Modal
-- [x] Delete Modal
-- [ ] Backend API Integration
-- [ ] Search Products
-- [ ] Add Product Form
-- [ ] Responsive UI
-- [ ] Dark Mode
-
-### Future
-
-- Express REST API
-- SQLite / PostgreSQL
-- Authentication
-- Dashboard
-- Categories
-- Charts
-- Pagination
-- Unit Testing
-- Docker Support
+- [ ] Database integration
+- [ ] Authentication
+- [ ] User roles and permissions
+- [ ] Inventory history
+- [ ] Pagination
+- [ ] Unit testing
+- [ ] Docker support
+- [ ] Additional dashboard features
 
 ---
 
-## Current Status
+## 📌 Current Status
 
-| Module      | Status         |
-| ----------- | -------------- |
-| Backend     | ✅ Working     |
-| Frontend UI | 🚧 In Progress |
-| API         | ⏳ Planned     |
-| Database    | JSON           |
-| Validation  | ✅             |
-| CRUD        | ✅             |
+| Module | Status |
+| --- | --- |
+| Frontend | ✅ Working |
+| Backend | ✅ Working |
+| REST API | ✅ Working |
+| CRUD | ✅ Working |
+| Search | ✅ Working |
+| Stock Management | ✅ Working |
+| Data Storage | JSON |
+| Database | 🚧 Planned |
+| Authentication | 🚧 Planned |
 
 ---
 
-## Author
+## 👤 Author
 
 **Yuvaraj P.G**
 
-GitHub: https://github.com/YuvarajPG
+- GitHub: https://github.com/YuvarajPG
 
 ---
 
-## License
+## 📄 License
 
-This project is created for learning purposes.
+This project is created for learning and development purposes.
